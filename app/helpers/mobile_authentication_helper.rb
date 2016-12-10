@@ -15,7 +15,11 @@ module MobileAuthenticationHelper
   end
 
   def require_user
-    render_unauthorized if is_mobile_app? && current_user.nil?
+    if is_mobile_app?
+      render_unauthorized if current_user.nil?
+    else
+      authenticate_user!
+    end
   end
 
   def render_unauthorized

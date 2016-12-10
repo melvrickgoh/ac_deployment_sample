@@ -1,15 +1,7 @@
 class SessionsController < Devise::SessionsController
-
-  clear_respond_to
-  respond_to :json
-
-  skip_before_filter :verify_signed_out_user, only: [:destroy]
-
   include MobileAuthenticationHelper
 
-  def new
-    redirect_to root_path
-  end
+  skip_before_action :verify_signed_out_user, only: [:destroy]
 
   def create
     user = warden.authenticate(auth_options)

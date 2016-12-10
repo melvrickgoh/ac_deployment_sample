@@ -1,6 +1,6 @@
 class CheckoutController < ApplicationController
-
   before_action :authenticate_user!
+  before_action :require_user
 
   def checkout
     form = CheckoutForm.new(current_user, checkout_params)

@@ -2,7 +2,8 @@ module Api
   module User
     class ShoppingCartController < ApplicationController
       before_action :authenticate_user!
-      
+      before_action :require_user      
+
       def index
         render json: current_user.shopping_cart
       end
@@ -12,7 +13,7 @@ module Api
           current_user.shopping_cart_add_items(update_cart_params[:item_ids])
           render json: current_user.shopping_cart
         else
-          render json: { error: "Invalid input" }
+          render json: { error: "Invalid input" }, status: :unprocessable_entity
         end
       end
 
@@ -21,7 +22,7 @@ module Api
           current_user.shopping_cart_remove_items(update_cart_params[:item_ids])
           render json: current_user.shopping_cart
         else
-          render json: { error: "Invalid input" }
+          render json: { error: "Invalid input" }, status: :unprocessable_entity
         end
       end
 

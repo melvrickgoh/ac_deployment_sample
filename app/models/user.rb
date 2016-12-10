@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   enum user_level: [:normal, :readonly_admin, :super_admin]
 
+  validates_presence_of :first_name, :email, :address
+
   has_one :shopping_cart
   has_many :transactions
 

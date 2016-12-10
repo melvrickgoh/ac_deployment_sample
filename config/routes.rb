@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'sessions'
+  }
 
-  # as :user do
-  #   post 'sign_in' => 'sessions#create'
-  #   delete 'sign_out' => 'sessions#destroy'
-  #   delete 'logout' => 'sessions#logout'
-  # end
+  as :user do
+    post 'sign_in' => 'sessions#create'
+    delete 'sign_out' => 'sessions#destroy'
+    delete 'logout' => 'sessions#logout'
+  end
 
   root 'welcome#index'
   mount RailsAdmin::Engine => '/ac_admin', as: 'rails_admin'
